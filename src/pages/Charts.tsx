@@ -1,21 +1,14 @@
-import React, { useState, useMemo } from 'react';
+import React, { useMemo, useState } from 'react';
 import { useAppContext } from '../context/AppContext';
-import { PieChart, Pie, Cell, ResponsiveContainer, Tooltip, BarChart, Bar, XAxis, YAxis, CartesianGrid } from 'recharts';
-import { format, startOfWeek, endOfWeek, startOfMonth, endOfMonth, startOfYear, endOfYear, eachDayOfInterval, subMonths, addMonths } from 'date-fns';
+import { PieChart, Pie, Cell, ResponsiveContainer, Tooltip } from 'recharts';
+import { startOfWeek, endOfWeek, startOfMonth, endOfMonth, startOfYear, endOfYear } from 'date-fns';
 import clsx from 'clsx';
 import * as Icons from 'lucide-react';
 
 const Charts: React.FC = () => {
   const { transactions, categories } = useAppContext();
   const [period, setPeriod] = useState<'week' | 'month' | 'year'>('month');
-  const [currentDate, setCurrentDate] = useState(new Date());
-
-  const periodLabel = useMemo(() => {
-    if (period === 'week') return '本周';
-    if (period === 'month') return format(currentDate, 'yyyy年MM月');
-    if (period === 'year') return format(currentDate, 'yyyy年');
-    return '';
-  }, [period, currentDate]);
+  const [currentDate] = useState(new Date());
 
   const filteredTransactions = useMemo(() => {
     let start, end;

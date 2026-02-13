@@ -21,7 +21,6 @@ const Profile: React.FC = () => {
   const remaining = budget.totalAmount - totalExpense;
   
   const today = new Date();
-  const daysInMonth = differenceInDays(endOfMonth(today), startOfMonth(today)) + 1;
   const daysLeft = differenceInDays(endOfMonth(today), today);
   const dailyBudget = daysLeft > 0 ? remaining / daysLeft : 0;
 
