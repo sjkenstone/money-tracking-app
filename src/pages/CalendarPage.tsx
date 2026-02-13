@@ -51,57 +51,59 @@ const CalendarPage: React.FC = () => {
 
   return (
     <div className="flex flex-col h-full bg-white">
-      {/* Header */}
-      <div className="bg-primary text-white p-4">
-        <div className="flex items-center justify-between mb-4">
-          <button onClick={() => setCurrentMonth(subMonths(currentMonth, 1))}>
-            <ChevronLeft />
-          </button>
-          <span className="text-lg font-medium">{format(currentMonth, 'yyyy年MM月')}</span>
-          <button onClick={() => setCurrentMonth(addMonths(currentMonth, 1))}>
-            <ChevronRight />
-          </button>
+      <div className="sticky top-0 z-10 bg-white">
+        {/* Header */}
+        <div className="bg-primary text-white p-4">
+          <div className="flex items-center justify-between mb-4">
+            <button onClick={() => setCurrentMonth(subMonths(currentMonth, 1))}>
+              <ChevronLeft />
+            </button>
+            <span className="text-lg font-medium">{format(currentMonth, 'yyyy年MM月')}</span>
+            <button onClick={() => setCurrentMonth(addMonths(currentMonth, 1))}>
+              <ChevronRight />
+            </button>
+          </div>
+          <div className="flex justify-between text-sm opacity-90 px-4">
+            <span>总支出: {monthStats.expense.toFixed(2)}</span>
+            <span>总收入: {monthStats.income.toFixed(2)}</span>
+          </div>
         </div>
-        <div className="flex justify-between text-sm opacity-90 px-4">
-          <span>总支出: {monthStats.expense.toFixed(2)}</span>
-          <span>总收入: {monthStats.income.toFixed(2)}</span>
-        </div>
-      </div>
 
-      {/* Calendar Grid */}
-      <div className="p-2 border-b border-gray-100">
-        <div className="grid grid-cols-7 mb-2 text-center text-xs text-gray-400">
-          {weekDays.map(d => <div key={d}>{d}</div>)}
-        </div>
-        <div className="grid grid-cols-7 gap-y-2">
-          {Array.from({ length: startDay }).map((_, i) => (
-            <div key={`empty-${i}`} />
-          ))}
-          {daysInMonth.map(day => {
-            const dateStr = format(day, 'yyyy-MM-dd');
-            const amount = dailyStats[dateStr];
-            const isSelected = isSameDay(day, selectedDate);
-            const isToday = isSameDay(day, new Date());
+        {/* Calendar Grid */}
+        <div className="p-2 border-b border-gray-100">
+          <div className="grid grid-cols-7 mb-2 text-center text-xs text-gray-400">
+            {weekDays.map(d => <div key={d}>{d}</div>)}
+          </div>
+          <div className="grid grid-cols-7 gap-y-2">
+            {Array.from({ length: startDay }).map((_, i) => (
+              <div key={`empty-${i}`} />
+            ))}
+            {daysInMonth.map(day => {
+              const dateStr = format(day, 'yyyy-MM-dd');
+              const amount = dailyStats[dateStr];
+              const isSelected = isSameDay(day, selectedDate);
+              const isToday = isSameDay(day, new Date());
 
-            return (
-              <div
-                key={dateStr}
-                onClick={() => setSelectedDate(day)}
-                className={clsx(
-                  "flex flex-col items-center justify-center py-1 rounded-lg transition-colors cursor-pointer",
-                  isSelected ? "bg-primary/10 text-primary" : "text-gray-700",
-                  isToday && !isSelected && "bg-gray-50"
-                )}
-              >
-                <span className={clsx("text-sm", isToday && "font-bold text-primary")}>
-                  {format(day, 'd')}
-                </span>
-                <span className="text-[10px] h-3 text-gray-400">
-                  {amount ? amount.toFixed(0) : ''}
-                </span>
-              </div>
-            );
-          })}
+              return (
+                <div
+                  key={dateStr}
+                  onClick={() => setSelectedDate(day)}
+                  className={clsx(
+                    "flex flex-col items-center justify-center py-1 rounded-lg transition-colors cursor-pointer",
+                    isSelected ? "bg-primary/10 text-primary" : "text-gray-700",
+                    isToday && !isSelected && "bg-gray-50"
+                  )}
+                >
+                  <span className={clsx("text-sm", isToday && "font-bold text-primary")}>
+                    {format(day, 'd')}
+                  </span>
+                  <span className="text-[10px] h-3 text-gray-400">
+                    {amount ? amount.toFixed(0) : ''}
+                  </span>
+                </div>
+              );
+            })}
+          </div>
         </div>
       </div>
 
