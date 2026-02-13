@@ -12,7 +12,11 @@ const Home: React.FC = () => {
   const [currentMonth, setCurrentMonth] = useState(new Date());
 
   const monthlyTransactions = useMemo(() => {
-    return transactions.filter(t => t.date.startsWith(format(currentMonth, 'yyyy-MM')));
+    const currentMonthStr = format(currentMonth, 'yyyy-MM');
+    return transactions.filter(t => {
+      const tDate = new Date(t.date);
+      return format(tDate, 'yyyy-MM') === currentMonthStr;
+    });
   }, [transactions, currentMonth]);
 
   const sortedTransactions = useMemo(() => {
@@ -34,7 +38,7 @@ const Home: React.FC = () => {
   const groupedTransactions = useMemo(() => {
     const groups: { [key: string]: typeof transactions } = {};
     sortedTransactions.forEach(t => {
-      const date = t.date.split('T')[0];
+      const date = format(new Date(t.date), 'yyyy-MM-dd');
       if (!groups[date]) groups[date] = [];
       groups[date].push(t);
     });

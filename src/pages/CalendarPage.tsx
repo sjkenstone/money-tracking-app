@@ -21,7 +21,7 @@ const CalendarPage: React.FC = () => {
     const stats: { [key: string]: number } = {};
     transactions.forEach(t => {
       if (t.type === 'expense') {
-        const date = t.date.split('T')[0];
+        const date = format(new Date(t.date), 'yyyy-MM-dd');
         stats[date] = (stats[date] || 0) + t.amount;
       }
     });
@@ -29,14 +29,16 @@ const CalendarPage: React.FC = () => {
   }, [transactions]);
 
   const selectedDayTransactions = useMemo(() => {
-    const dateStr = format(selectedDate, 'yyyy-MM-dd');
-    return transactions.filter(t => t.date.startsWith(dateStr));
+    return transactions.filter(t => isSameDay(new Date(t.date), selectedDate));
   }, [transactions, selectedDate]);
 
   const monthStats = useMemo(() => {
     const monthStr = format(currentMonth, 'yyyy-MM');
     return transactions
-      .filter(t => t.date.startsWith(monthStr))
+      .filter(t => {
+        const tDate = new Date(t.date);
+        return format(tDate, 'yyyy-MM') === monthStr;
+      })
       .reduce((acc, t) => {
         if (t.type === 'expense') acc.expense += t.amount;
         if (t.type === 'income') acc.income += t.amount;
