@@ -12,11 +12,11 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
   const isHomePage = location.pathname === '/';
   const showBottomNav = !isAddPage;
 
-  const containerClassName = `min-h-screen bg-gray-50 flex flex-col font-sans text-gray-900${
+  const containerClassName = `h-screen overflow-hidden bg-gray-50 flex flex-col font-sans text-gray-900${
     showBottomNav ? ' pb-24' : ''
   }`;
 
-  const mainClassName = isAddPage ? 'flex-1 overflow-hidden' : 'flex-1 overflow-y-auto';
+  const mainClassName = 'flex-1 overflow-hidden relative';
 
   return (
     <div className={containerClassName}>
