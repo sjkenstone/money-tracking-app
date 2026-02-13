@@ -8,14 +8,18 @@ interface LayoutProps {
 
 const Layout: React.FC<LayoutProps> = ({ children }) => {
   const location = useLocation();
-  // Hide bottom nav on the Add Transaction page if we want it to be full screen
-  // But requirement says "half screen or full screen page", keeping nav might be distracting or useful.
-  // Let's hide it for /add to focus on "Fast Entry".
-  const showBottomNav = location.pathname !== '/add';
+  const isAddPage = location.pathname === '/add';
+  const showBottomNav = !isAddPage;
+
+  const containerClassName = `min-h-screen bg-gray-50 flex flex-col font-sans text-gray-900${
+    showBottomNav ? ' pb-24' : ''
+  }`;
+
+  const mainClassName = isAddPage ? 'flex-1 overflow-hidden' : 'flex-1 overflow-y-auto';
 
   return (
-    <div className="min-h-screen bg-gray-50 flex flex-col font-sans text-gray-900 pb-24">
-      <main className="flex-1 overflow-y-auto">
+    <div className={containerClassName}>
+      <main className={mainClassName}>
         {children}
       </main>
       {showBottomNav && <BottomNavigation />}

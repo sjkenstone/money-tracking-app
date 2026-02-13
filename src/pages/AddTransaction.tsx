@@ -1,25 +1,32 @@
-import React, { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { useAppContext } from '../context/AppContext';
-import type { TransactionType } from '../types';
-import Keypad from '../components/Keypad';
-import * as Icons from 'lucide-react';
-import { X, Calendar as CalendarIcon, Image as ImageIcon, MessageSquare } from 'lucide-react';
-import clsx from 'clsx';
-import { format } from 'date-fns';
+import React, { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+import { useAppContext } from "../context/AppContext";
+import type { TransactionType } from "../types";
+import Keypad from "../components/Keypad";
+import * as Icons from "lucide-react";
+import {
+  X,
+  Calendar as CalendarIcon,
+  Image as ImageIcon,
+  MessageSquare,
+} from "lucide-react";
+import clsx from "clsx";
+import { format } from "date-fns";
 
 const AddTransaction: React.FC = () => {
   const navigate = useNavigate();
   const { categories, addTransaction } = useAppContext();
-  
-  const [type, setType] = useState<TransactionType>('expense');
-  const [amountStr, setAmountStr] = useState('0');
-  const [selectedCategoryId, setSelectedCategoryId] = useState<string | null>(null);
-  const [note, setNote] = useState('');
+
+  const [type, setType] = useState<TransactionType>("expense");
+  const [amountStr, setAmountStr] = useState("0");
+  const [selectedCategoryId, setSelectedCategoryId] = useState<string | null>(
+    null
+  );
+  const [note, setNote] = useState("");
   const [date] = useState(new Date());
-  
+
   // Filter categories by type
-  const currentCategories = categories.filter(c => c.type === type);
+  const currentCategories = categories.filter((c) => c.type === type);
 
   // Set default category when type changes
   useEffect(() => {
@@ -29,20 +36,21 @@ const AddTransaction: React.FC = () => {
   }, [type]);
 
   const handleDigit = (digit: string) => {
-    if (amountStr === '0' && digit !== '.') {
+    if (amountStr === "0" && digit !== ".") {
       setAmountStr(digit);
     } else {
-      if (digit === '.' && amountStr.includes('.')) return;
-      if (amountStr.includes('.') && amountStr.split('.')[1].length >= 2) return; // Max 2 decimals
-      setAmountStr(prev => prev + digit);
+      if (digit === "." && amountStr.includes(".")) return;
+      if (amountStr.includes(".") && amountStr.split(".")[1].length >= 2)
+        return; // Max 2 decimals
+      setAmountStr((prev) => prev + digit);
     }
   };
 
   const handleDelete = () => {
     if (amountStr.length === 1) {
-      setAmountStr('0');
+      setAmountStr("0");
     } else {
-      setAmountStr(prev => prev.slice(0, -1));
+      setAmountStr((prev) => prev.slice(0, -1));
     }
   };
 
@@ -51,15 +59,15 @@ const AddTransaction: React.FC = () => {
     // For MVP, let's assume the user enters the final amount or does simple addition
     // To keep it simple and "3 seconds entry", let's ignore complex calc for now or implement eval safely
     // Or just treat it as a digit but prevent multiple ops
-    if (amountStr.endsWith('+') || amountStr.endsWith('-')) return;
-    setAmountStr(prev => prev + op);
+    if (amountStr.endsWith("+") || amountStr.endsWith("-")) return;
+    setAmountStr((prev) => prev + op);
   };
 
   const calculateResult = (): number => {
     try {
       // Safe eval for simple math
       // eslint-disable-next-line no-new-func
-      const result = new Function('return ' + amountStr)();
+      const result = new Function("return " + amountStr)();
       return Number(parseFloat(result).toFixed(2));
     } catch (e) {
       return parseFloat(amountStr);
@@ -78,11 +86,12 @@ const AddTransaction: React.FC = () => {
       date: date.toISOString(),
       note: note || undefined,
     });
-    
-    navigate('/');
+
+    navigate("/");
   };
 
-  const IconComponent = (iconName: string) => (Icons as any)[iconName] || Icons.HelpCircle;
+  const IconComponent = (iconName: string) =>
+    (Icons as any)[iconName] || Icons.HelpCircle;
 
   return (
     <div className="flex flex-col h-screen bg-white">
@@ -92,16 +101,18 @@ const AddTransaction: React.FC = () => {
           <X size={24} />
         </button>
         <div className="flex gap-4">
-          {(['expense', 'income', 'transfer'] as const).map((t) => (
+          {(["expense", "income", "transfer"] as const).map((t) => (
             <button
               key={t}
               onClick={() => setType(t)}
               className={clsx(
                 "px-3 py-1 rounded-full text-sm font-medium transition-colors",
-                type === t ? "bg-white text-primary" : "text-white/70 hover:text-white"
+                type === t
+                  ? "bg-white text-primary"
+                  : "text-white/70 hover:text-white"
               )}
             >
-              {{ expense: '支出', income: '收入', transfer: '转账' }[t]}
+              {{ expense: "支出", income: "收入", transfer: "转账" }[t]}
             </button>
           ))}
         </div>
@@ -116,7 +127,7 @@ const AddTransaction: React.FC = () => {
       {/* Categories Grid */}
       <div className="flex-1 overflow-y-auto p-4">
         <div className="grid grid-cols-5 gap-4">
-          {currentCategories.map(cat => (
+          {currentCategories.map((cat) => (
             <button
               key={cat.id}
               onClick={() => setSelectedCategoryId(cat.id)}
@@ -132,10 +143,14 @@ const AddTransaction: React.FC = () => {
               >
                 {React.createElement(IconComponent(cat.icon), { size: 24 })}
               </div>
-              <span className={clsx(
-                "text-xs",
-                selectedCategoryId === cat.id ? "text-primary font-medium" : "text-gray-500"
-              )}>
+              <span
+                className={clsx(
+                  "text-xs",
+                  selectedCategoryId === cat.id
+                    ? "text-primary font-medium"
+                    : "text-gray-500"
+                )}
+              >
                 {cat.name}
               </span>
             </button>
@@ -154,13 +169,13 @@ const AddTransaction: React.FC = () => {
       <div className="flex items-center gap-4 px-4 py-2 border-t border-gray-100 bg-gray-50 text-gray-500">
         <button className="flex items-center gap-1 text-xs bg-white px-3 py-1.5 rounded-full border border-gray-200">
           <CalendarIcon size={14} />
-          {format(date, 'MM/dd')}
+          {format(date, "MM/dd")}
         </button>
         <div className="flex-1 flex items-center bg-white px-3 py-1.5 rounded-full border border-gray-200">
           <MessageSquare size={14} className="mr-2" />
-          <input 
-            type="text" 
-            placeholder="写备注..." 
+          <input
+            type="text"
+            placeholder="写备注..."
             className="w-full bg-transparent text-xs outline-none text-gray-700 placeholder-gray-400"
             value={note}
             onChange={(e) => setNote(e.target.value)}
@@ -172,13 +187,13 @@ const AddTransaction: React.FC = () => {
       </div>
 
       {/* Keypad */}
-      <Keypad 
+      <Keypad
         onDigit={handleDigit}
         onDelete={handleDelete}
         onOperation={handleOperation}
         onSubmit={handleSubmit}
         onDate={() => {}} // TODO: Date picker
-        onClear={() => setAmountStr('0')}
+        onClear={() => setAmountStr("0")}
       />
     </div>
   );
