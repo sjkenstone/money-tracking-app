@@ -44,7 +44,7 @@ const Home: React.FC = () => {
   return (
     <div className="flex flex-col h-full">
       {/* Header */}
-      <header className="sticky top-0 bg-primary text-white p-6 pb-12 rounded-b-[2rem] shadow-md z-10">
+      <header className="bg-primary text-white p-6 pb-12 rounded-b-[2rem] shadow-md z-10">
         <div className="flex justify-between items-center mb-6">
           <div className="flex items-center gap-1 opacity-90">
             <span className="text-sm font-medium">{format(currentMonth, 'yyyy年MM月')}</span>
@@ -79,7 +79,7 @@ const Home: React.FC = () => {
       </header>
 
       {/* Transaction List */}
-      <div className="flex-1 -mt-6 px-4 pb-4">
+      <div className="flex-1 -mt-6 px-4 pb-4 overflow-y-auto">
         {Object.keys(groupedTransactions).length > 0 ? (
           Object.keys(groupedTransactions).map(date => (
             <div key={date} className="mb-4 overflow-hidden rounded-xl shadow-sm border border-gray-100 bg-white">

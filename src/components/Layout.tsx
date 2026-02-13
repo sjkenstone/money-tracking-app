@@ -9,6 +9,7 @@ interface LayoutProps {
 const Layout: React.FC<LayoutProps> = ({ children }) => {
   const location = useLocation();
   const isAddPage = location.pathname === '/add';
+  const isHomePage = location.pathname === '/';
   const showBottomNav = !isAddPage;
 
   const containerClassName = `min-h-screen bg-gray-50 flex flex-col font-sans text-gray-900${

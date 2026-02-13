@@ -25,7 +25,8 @@ body {
   max-width: 480px; /* Mobile width */
   margin: 0 auto;
   background-color: white;
-  min-height: 100vh;
+  height: 100vh;
+  overflow: hidden;
   position: relative;
   box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
 }
