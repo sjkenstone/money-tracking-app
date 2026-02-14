@@ -83,7 +83,7 @@ const Home: React.FC = () => {
       </header>
 
       {/* Transaction List */}
-      <div className="flex-1 -mt-6 px-4 pb-4 overflow-y-auto">
+      <div className="flex-1 mt-2 px-4 pb-4 overflow-y-auto">
         {Object.keys(groupedTransactions).length > 0 ? (
           Object.keys(groupedTransactions).map(date => (
             <div key={date} className="mb-4 overflow-hidden rounded-xl shadow-sm border border-gray-100 bg-white">
