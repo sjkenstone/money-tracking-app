@@ -42,7 +42,7 @@ const Charts: React.FC = () => {
       .map(([id, value]) => {
         const category = categories.find(c => c.id === id);
         return {
-          name: category?.name || '未知',
+          name: category?.name || 'Unknown',
           value,
           color: category?.color || '#ccc',
           icon: category?.icon,
@@ -69,13 +69,13 @@ const Charts: React.FC = () => {
                   period === p ? "bg-white text-primary" : "text-white/70 hover:text-white"
                 )}
               >
-                {{ week: '周', month: '月', year: '年' }[p]}
+                {{ week: 'Week', month: 'Month', year: 'Year' }[p]}
               </button>
             ))}
           </div>
         </div>
         <div className="text-center">
-          <div className="text-xs opacity-70 mb-1">总支出</div>
+          <div className="text-xs opacity-70 mb-1">Total Expense</div>
           <div className="text-2xl font-bold">{totalExpense.toFixed(2)}</div>
         </div>
       </div>
@@ -105,7 +105,7 @@ const Charts: React.FC = () => {
 
         {/* Ranking List */}
         <div className="space-y-4 pb-8">
-          <h3 className="font-bold text-gray-800">支出排行榜</h3>
+          <h3 className="font-bold text-gray-800">Expense Ranking</h3>
           {categoryData.map((item, index) => (
             <div key={index} className="flex items-center gap-3">
               <div 

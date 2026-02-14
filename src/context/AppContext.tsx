@@ -15,15 +15,15 @@ interface AppContextType {
 }
 
 const defaultCategories: Category[] = [
-  { id: '1', name: '餐饮', icon: 'Utensils', type: 'expense', color: '#ef4444' },
-  { id: '2', name: '购物', icon: 'ShoppingBag', type: 'expense', color: '#f97316' },
-  { id: '3', name: '交通', icon: 'Bus', type: 'expense', color: '#3b82f6' },
-  { id: '4', name: '娱乐', icon: 'Gamepad2', type: 'expense', color: '#8b5cf6' },
-  { id: '5', name: '居住', icon: 'Home', type: 'expense', color: '#10b981' },
-  { id: '6', name: '医疗', icon: 'Stethoscope', type: 'expense', color: '#ec4899' },
-  { id: '7', name: '工资', icon: 'Banknote', type: 'income', color: '#22c55e' },
-  { id: '8', name: '兼职', icon: 'Briefcase', type: 'income', color: '#14b8a6' },
-  { id: '9', name: '理财', icon: 'TrendingUp', type: 'income', color: '#f59e0b' },
+  { id: '1', name: 'Food', icon: 'Utensils', type: 'expense', color: '#ef4444' },
+  { id: '2', name: 'Shopping', icon: 'ShoppingBag', type: 'expense', color: '#f97316' },
+  { id: '3', name: 'Transport', icon: 'Bus', type: 'expense', color: '#3b82f6' },
+  { id: '4', name: 'Entertainment', icon: 'Gamepad2', type: 'expense', color: '#8b5cf6' },
+  { id: '5', name: 'Housing', icon: 'Home', type: 'expense', color: '#10b981' },
+  { id: '6', name: 'Medical', icon: 'Stethoscope', type: 'expense', color: '#ec4899' },
+  { id: '7', name: 'Salary', icon: 'Banknote', type: 'income', color: '#22c55e' },
+  { id: '8', name: 'Part-time', icon: 'Briefcase', type: 'income', color: '#14b8a6' },
+  { id: '9', name: 'Investment', icon: 'TrendingUp', type: 'income', color: '#f59e0b' },
 ];
 
 const AppContext = createContext<AppContextType | undefined>(undefined);

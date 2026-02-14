@@ -112,7 +112,7 @@ const AddTransaction: React.FC = () => {
                   : "text-white/70 hover:text-white"
               )}
             >
-              {{ expense: "支出", income: "收入", transfer: "转账" }[t]}
+              {{ expense: "Expense", income: "Income", transfer: "Transfer" }[t]}
             </button>
           ))}
         </div>
@@ -160,7 +160,7 @@ const AddTransaction: React.FC = () => {
             <div className="w-12 h-12 rounded-full bg-gray-100 text-gray-400 flex items-center justify-center">
               <Icons.Plus size={24} />
             </div>
-            <span className="text-xs text-gray-400">设置</span>
+            <span className="text-xs text-gray-400">Settings</span>
           </button>
         </div>
       </div>
@@ -175,7 +175,7 @@ const AddTransaction: React.FC = () => {
           <MessageSquare size={14} className="mr-2" />
           <input
             type="text"
-            placeholder="写备注..."
+            placeholder="Add note..."
             className="w-full bg-transparent text-xs outline-none text-gray-700 placeholder-gray-400"
             value={note}
             onChange={(e) => setNote(e.target.value)}

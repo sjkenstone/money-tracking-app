@@ -44,21 +44,21 @@ const Profile: React.FC = () => {
           🐱
         </div>
         <div>
-          <h2 className="text-xl font-bold">我的记账本</h2>
-          <p className="text-sm text-gray-500">坚持记账第 1 天</p>
+          <h2 className="text-xl font-bold">My Ledger</h2>
+          <p className="text-sm text-gray-500">Day 1 of accounting</p>
         </div>
       </div>
 
       {/* Budget Card */}
       <div className="bg-white rounded-xl p-6 shadow-sm mb-6">
         <div className="flex justify-between items-center mb-4">
-          <h3 className="font-bold text-gray-800">本月预算</h3>
+          <h3 className="font-bold text-gray-800">Monthly Budget</h3>
           <button 
             onClick={() => setIsEditingBudget(!isEditingBudget)}
             className="text-primary text-sm flex items-center gap-1"
           >
             <Edit2 size={14} />
-            {isEditingBudget ? '取消' : '修改'}
+            {isEditingBudget ? 'Cancel' : 'Edit'}
           </button>
         </div>
 
@@ -74,18 +74,18 @@ const Profile: React.FC = () => {
               onClick={handleSaveBudget}
               className="bg-primary text-white px-4 rounded"
             >
-              保存
+              Save
             </button>
           </div>
         ) : (
           <>
             <div className="mb-2 flex justify-between items-end">
               <div>
-                <span className="text-sm text-gray-500">已支出 </span>
+                <span className="text-sm text-gray-500">Spent </span>
                 <span className="font-bold text-gray-900">{totalExpense.toFixed(2)}</span>
               </div>
               <div>
-                <span className="text-sm text-gray-500">总预算 </span>
+                <span className="text-sm text-gray-500">Total Budget </span>
                 <span className="font-medium text-gray-900">{budget.totalAmount.toFixed(2)}</span>
               </div>
             </div>
@@ -99,21 +99,21 @@ const Profile: React.FC = () => {
 
             <div className="flex justify-between items-center text-xs text-gray-500 bg-gray-50 p-3 rounded-lg">
               <div className="flex flex-col">
-                <span>剩余预算</span>
+                <span>Remaining</span>
                 <span className={clsx("text-lg font-bold", remaining < 0 ? "text-expense" : "text-primary")}>
                   {remaining.toFixed(2)}
                 </span>
               </div>
               <div className="flex flex-col items-end">
-                <span>剩余 {daysLeft} 天</span>
-                <span>建议日均 {dailyBudget > 0 ? dailyBudget.toFixed(2) : '0.00'}</span>
+                <span>{daysLeft} days left</span>
+                <span>Daily avg {dailyBudget > 0 ? dailyBudget.toFixed(2) : '0.00'}</span>
               </div>
             </div>
 
             {percentage >= 80 && (
               <div className="mt-3 flex items-center gap-2 text-xs text-orange-600 bg-orange-50 p-2 rounded">
                 <AlertTriangle size={14} />
-                <span>预算已使用 {percentage.toFixed(0)}%，请注意控制消费！</span>
+                <span>Budget used {percentage.toFixed(0)}%, please control spending!</span>
               </div>
             )}
           </>
@@ -124,15 +124,15 @@ const Profile: React.FC = () => {
       <div className="bg-white rounded-xl shadow-sm overflow-hidden">
         <div className="flex items-center gap-3 p-4 border-b border-gray-50 active:bg-gray-50">
           <CreditCard size={20} className="text-primary" />
-          <span className="flex-1">资产管理</span>
+          <span className="flex-1">Asset Management</span>
         </div>
         <div className="flex items-center gap-3 p-4 border-b border-gray-50 active:bg-gray-50">
           <Settings size={20} className="text-gray-500" />
-          <span className="flex-1">设置</span>
+          <span className="flex-1">Settings</span>
         </div>
         <div className="flex items-center gap-3 p-4 active:bg-gray-50 text-expense">
           <LogOut size={20} />
-          <span className="flex-1">退出登录</span>
+          <span className="flex-1">Log Out</span>
         </div>
       </div>
     </div>

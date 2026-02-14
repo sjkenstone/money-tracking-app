@@ -1,7 +1,7 @@
 import React, { useState, useMemo } from 'react';
 import { useAppContext } from '../context/AppContext';
 import { format, startOfMonth, endOfMonth, eachDayOfInterval, isSameDay, addMonths, subMonths, getDay } from 'date-fns';
-import { zhCN } from 'date-fns/locale';
+import { enUS } from 'date-fns/locale';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 import TransactionItem from '../components/TransactionItem';
 import clsx from 'clsx';
@@ -46,7 +46,7 @@ const CalendarPage: React.FC = () => {
       }, { income: 0, expense: 0 });
   }, [transactions, currentMonth]);
 
-  const weekDays = ['日', '一', '二', '三', '四', '五', '六'];
+  const weekDays = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
 
   // Calculate padding for first day
   const startDay = getDay(startOfMonth(currentMonth));
@@ -60,14 +60,14 @@ const CalendarPage: React.FC = () => {
             <button onClick={() => setCurrentMonth(subMonths(currentMonth, 1))}>
               <ChevronLeft />
             </button>
-            <span className="text-lg font-medium">{format(currentMonth, 'yyyy年MM月')}</span>
+            <span className="text-lg font-medium">{format(currentMonth, 'MMMM yyyy', { locale: enUS })}</span>
             <button onClick={() => setCurrentMonth(addMonths(currentMonth, 1))}>
               <ChevronRight />
             </button>
           </div>
           <div className="flex justify-between text-sm opacity-90 px-4">
-            <span>总支出: {monthStats.expense.toFixed(2)}</span>
-            <span>总收入: {monthStats.income.toFixed(2)}</span>
+            <span>Total Expense: {monthStats.expense.toFixed(2)}</span>
+            <span>Total Income: {monthStats.income.toFixed(2)}</span>
           </div>
         </div>
 
@@ -112,11 +112,11 @@ const CalendarPage: React.FC = () => {
       {/* Transactions List */}
       <div className="flex-1 overflow-y-auto bg-gray-50 p-4">
         <div className="flex justify-between items-center mb-2 text-xs text-gray-500">
-          <span>{format(selectedDate, 'MM月dd日 EEEE', { locale: zhCN })}</span>
+          <span>{format(selectedDate, 'MMM dd, EEEE', { locale: enUS })}</span>
           <span>
             {selectedDayTransactions.length > 0
-              ? `支出 ${selectedDayTransactions.filter(t => t.type === 'expense').reduce((acc, t) => acc + t.amount, 0).toFixed(2)}`
-              : '无记录'}
+              ? `Expense ${selectedDayTransactions.filter(t => t.type === 'expense').reduce((acc, t) => acc + t.amount, 0).toFixed(2)}`
+              : 'No records'}
           </span>
         </div>
         <div className="space-y-2">

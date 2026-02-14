@@ -7,11 +7,11 @@ const BottomNavigation: React.FC = () => {
   const navigate = useNavigate();
 
   const navItems = [
-    { path: '/', icon: Home, label: '明细' },
-    { path: '/charts', icon: BarChart2, label: '图表' },
-    { path: '/add', icon: Plus, label: '记账', isSpecial: true },
-    { path: '/calendar', icon: Calendar, label: '日历' },
-    { path: '/profile', icon: User, label: '我的' },
+    { path: '/', icon: Home, label: 'Home' },
+    { path: '/charts', icon: BarChart2, label: 'Charts' },
+    { path: '/add', icon: Plus, label: 'Add', isSpecial: true },
+    { path: '/calendar', icon: Calendar, label: 'Calendar' },
+    { path: '/profile', icon: User, label: 'Me' },
   ];
 
   return (

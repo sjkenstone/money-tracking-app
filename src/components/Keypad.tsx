@@ -38,9 +38,9 @@ const Keypad: React.FC<KeypadProps> = ({
 
   const renderContent = (btn: string) => {
     if (btn === "DEL") return <Delete size={24} />;
-    if (btn === "OK") return <span className="font-bold">完成</span>;
+    if (btn === "OK") return <span className="font-bold">Done</span>;
     if (btn === "date")
-      return <span className="text-sm font-medium">今天</span>; // Should update with selected date
+      return <span className="text-sm font-medium">Today</span>; // Should update with selected date
     return <span className="text-xl font-medium">{btn}</span>;
   };
 
